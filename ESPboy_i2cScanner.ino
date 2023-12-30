@@ -4,13 +4,17 @@ for www.ESPboy.com project by RomanS
 v1.0
 */
 
-#include "ESPboyInit.h"
-#include "ESPboyLED.h"
+#include "lib/ESPboyInit.h"
+#include "lib/ESPboyInit.cpp"
+//#include "lib/ESPboyTerminalGUI.h"
+//#include "lib/ESPboyTerminalGUI.cpp"
+//#include "lib/ESPboyOTA2.h"
+//#include "lib/ESPboyOTA2.cpp"
 #include <Wire.h>
 
 ESPboyInit myESPboy;
-ESPboyLED myLED;
-
+//ESPboyTerminalGUI *terminalGUIobj = NULL;
+//ESPboyOTA2 *OTA2obj = NULL;
 
 void prntAddr(uint8_t address, String toPrint){
  if (address<16) toPrint+="0";
@@ -23,7 +27,13 @@ void prntAddr(uint8_t address, String toPrint){
 void setup(){
   Serial.begin(115200);
   myESPboy.begin("i2c scanner");
-  myLED.begin(&myESPboy.mcp);
+/*
+  //Check OTA2
+  if (myESPboy.getKeys()&PAD_ACT || myESPboy.getKeys()&PAD_ESC) { 
+     terminalGUIobj = new ESPboyTerminalGUI(&myESPboy.tft, &myESPboy.mcp);
+     OTA2obj = new ESPboyOTA2(terminalGUIobj);
+  }
+*/  
   myESPboy.tft.setTextSize(1);
 }
 
